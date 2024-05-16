@@ -10,9 +10,9 @@ namespace ExcerciseTracker.Controllers
 {
     internal class ExerciseController
     {
-        private readonly IExerciseRepository<Running> _exerciseRepository;
+        private readonly ICardioRepository<Cardio> _exerciseRepository;
 
-        public ExerciseController(IExerciseRepository<Running> exerciseRepository)
+        public ExerciseController(ICardioRepository<Cardio> exerciseRepository)
         {
             _exerciseRepository = exerciseRepository;
         }

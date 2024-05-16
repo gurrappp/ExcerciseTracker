@@ -17,7 +17,7 @@ namespace ExcerciseTracker.Models
     {
         private string connectionString;
 
-        public DbSet<Running> Running { get; set; } = null!;
+        public DbSet<Cardio> Running { get; set; } = null!;
         public ExerciseContext() 
         {
             IConfigurationRoot configuration =

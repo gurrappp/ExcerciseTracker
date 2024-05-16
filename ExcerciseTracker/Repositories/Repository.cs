@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace ExcerciseTracker.Repositories
 {
-    internal class ExerciseRepository<T> : IExerciseRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class
     {
-        private readonly DbContext _context;
-        private readonly DbSet<T> _dbSet;
+        protected readonly DbContext _context;
+        protected DbSet<T> _dbSet;
 
-        public ExerciseRepository(DbContext context)
+        public Repository(DbContext context)
         {
-            context = _context;
+            _context = context;
             _dbSet = _context.Set<T>();
         }
 
@@ -42,14 +42,5 @@ namespace ExcerciseTracker.Repositories
         {
             _context.Remove(entity);
         }
-    }
-
-    public interface IExerciseRepository<T>
-    {
-        T GetById(int id);
-        IEnumerable<T> GetAll();
-        void Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
     }
 }

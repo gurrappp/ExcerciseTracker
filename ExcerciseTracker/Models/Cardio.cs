@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExcerciseTracker.Models
 {
-    internal class Running
+    public class Cardio
     {
         public int Id { get; set; }
         public DateTime DateStart { get; set; }
