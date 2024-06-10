@@ -1,4 +1,5 @@
-﻿using ExcerciseTracker.Validation;
+﻿using ExcerciseTracker.Controllers;
+using ExcerciseTracker.Validation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,15 @@ using System.Threading.Tasks;
 
 namespace ExcerciseTracker.UI
 {
-    internal class UserInput
+    public class UserInput
     {
         private Validate validate;
+        private ExerciseController controller;
 
-        public UserInput()
+        public UserInput(Validate validate, ExerciseController controller)
         {
-            validate = new Validate();
+            this.validate = validate;
+            this.controller = controller;
         }
 
         public async Task Menu()
@@ -50,6 +53,7 @@ namespace ExcerciseTracker.UI
                         closeApp = true;
                         break;
                     case 1:
+                        controller.ShowAllRecords();
                         break;
                 }
             }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExcerciseTracker.Services
 {
-    internal class ExerciseService : IExerciseService
+    public class ExerciseService   
     {
     }
 }

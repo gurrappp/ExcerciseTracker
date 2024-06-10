@@ -10,15 +10,16 @@ using Microsoft.Extensions.Configuration;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.Identity.Client;
 using System.Data.Common;
+using ExcerciseTracker.Models;
 
-namespace ExcerciseTracker.Models
+namespace ExcerciseTracker.Context
 {
     internal class ExerciseContext : DbContext
     {
         private string connectionString;
 
         public DbSet<Cardio> Running { get; set; } = null!;
-        public ExerciseContext() 
+        public ExerciseContext()
         {
             IConfigurationRoot configuration =
                 new ConfigurationBuilder()
@@ -34,12 +35,12 @@ namespace ExcerciseTracker.Models
         {
             if (optionsBuilder.IsConfigured) return;
 
-            IConfigurationRoot configuration = 
+            IConfigurationRoot configuration =
                 new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
-            
+
             optionsBuilder.UseSqlServer(connectionString);
         }
     }

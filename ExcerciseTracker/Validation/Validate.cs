@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ExcerciseTracker.Validation
 {
-    internal class Validate
+    public class Validate
     {
         public (bool, int) ValidateMenuOption(string? option)
         {
