@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,5 +20,12 @@ namespace ExcerciseTracker.Validation
             return (true,result);
         }
 
+        public DateTime ValidateTime(string? input)
+        {
+            if (DateTime.TryParse(input, CultureInfo.CurrentCulture, DateTimeStyles.None, out var timeResult))
+                return timeResult;
+
+            return DateTime.Now;
+        }
     }
 }

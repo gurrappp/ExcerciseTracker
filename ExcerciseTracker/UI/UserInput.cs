@@ -1,5 +1,7 @@
 ﻿using ExcerciseTracker.Controllers;
+using ExcerciseTracker.Models;
 using ExcerciseTracker.Validation;
+using OptimalSeatingArrangement.TableVizualisation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +21,7 @@ namespace ExcerciseTracker.UI
             this.controller = controller;
         }
 
-        public async Task Menu()
+        public void Menu()
         {
 
             bool closeApp = false;
@@ -53,12 +55,40 @@ namespace ExcerciseTracker.UI
                         closeApp = true;
                         break;
                     case 1:
-                        controller.ShowAllRecords();
+                        List<Cardio> cardioList = controller.ShowAllRecords();
+                        TableVisualizationEngine.ShowTable(cardioList, "CardioExercises", "");
+                        break;
+                    case 5:
+
+                        Cardio cardio = CreateNewExercise();
+                        controller.CreateNewExercise(cardio);
+
                         break;
                 }
             }
+        }
 
+        private Cardio CreateNewExercise()
+        {
+            
+            Console.WriteLine("Write start time of exercise with format: yyyy-MM-dd HH:mm:ss:");
+            var value = Console.ReadLine();
+            var startTime = validate.ValidateTime(value);
+            
+            Console.WriteLine("Write end time of exercise with format: yyyy-MM-dd HH:mm:ss:");
+            value = Console.ReadLine();
 
+            var endTime = validate.ValidateTime(value);
+
+            Console.WriteLine("Write a comment associated with exercise:");
+            var comment = Console.ReadLine();
+
+            return new Cardio 
+            {
+                DateStart = startTime,
+                DateEnd = endTime,
+                Comments = comment,
+            };
 
         }
     }

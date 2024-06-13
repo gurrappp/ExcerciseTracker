@@ -14,11 +14,13 @@ namespace ExcerciseTracker.Controllers
     public class ExerciseController(ExerciseService exerciseService, ICardioRepository cardioRepository)
     {
 
-        public void ShowAllRecords()
+        public List<Cardio> ShowAllRecords()
         {
-            var list = cardioRepository.GetAll();
+            var cardioList = exerciseService.GetAllRecords().ToList();
 
-            TableVisualizationEngine.ShowTable(list.ToList(), "CardioExercises", "");
+            return cardioList;
+
+            //TableVisualizationEngine.ShowTable(cardioList, "CardioExercises", "");
             
         }
         //private readonly ICardioRepository<Cardio> _exerciseRepository;
@@ -28,6 +30,12 @@ namespace ExcerciseTracker.Controllers
         //    _exerciseRepository = exerciseRepository;
         //}
 
+        public void CreateNewExercise(Cardio newCardio)
+        {
+            exerciseService.CreateNewExercise(newCardio);
+
+            //return cardio;
+        }
 
     }
 }

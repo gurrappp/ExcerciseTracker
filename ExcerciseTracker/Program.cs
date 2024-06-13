@@ -25,12 +25,7 @@ public class Program
         this.validate = validate;
     }
 
-    public void Run()
-    {
-        _ = userInput.Menu();
-    }
-
-    public static async Task Main(string[] args)
+    public static void Main(string[] args)
     {
 
         //HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
@@ -66,5 +61,10 @@ public class Program
                 services.AddTransient<ICardioRepository,CardioRepository>();
                 //services.AddTransient<TableVisualizationEngine>();
             });
+    }
+
+    public void Run()
+    {
+        userInput.Menu();
     }
 }
