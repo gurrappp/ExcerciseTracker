@@ -6,6 +6,8 @@ using ExcerciseTracker.Services;
 using ExcerciseTracker.Validation;
 using ExcerciseTracker.Repositories;
 using OptimalSeatingArrangement.TableVizualisation;
+using Microsoft.EntityFrameworkCore;
+using ExcerciseTracker.Context;
 
 namespace ExcerciseTracker;
 
@@ -59,6 +61,7 @@ public class Program
                 services.AddTransient<UserInput>();
                 services.AddTransient<Validate>();
                 services.AddTransient<ICardioRepository,CardioRepository>();
+                services.AddScoped<DbContext, ExerciseContext>();
                 //services.AddTransient<TableVisualizationEngine>();
             });
     }

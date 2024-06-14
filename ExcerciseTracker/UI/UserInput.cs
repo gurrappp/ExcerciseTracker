@@ -80,6 +80,10 @@ namespace ExcerciseTracker.UI
 
             var endTime = validate.ValidateTime(value);
 
+            TimeSpan timeSpan = endTime.Subtract(startTime);
+            DateTime date = DateTime.Parse(timeSpan.ToString());
+            var duration = date.ToString("HH:mm:ss");
+
             Console.WriteLine("Write a comment associated with exercise:");
             var comment = Console.ReadLine();
 
@@ -87,6 +91,7 @@ namespace ExcerciseTracker.UI
             {
                 DateStart = startTime,
                 DateEnd = endTime,
+                Duration = duration,
                 Comments = comment,
             };
 

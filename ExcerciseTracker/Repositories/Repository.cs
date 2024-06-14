@@ -42,5 +42,10 @@ namespace ExcerciseTracker.Repositories
         {
             _context.Remove(entity);
         }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
+        }
     }
 }

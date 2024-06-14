@@ -22,6 +22,7 @@ namespace ExcerciseTracker.Services
 
             
             cardioRepository.Add(cardio);
+            cardioRepository.SaveChanges();
             
         }
     }
