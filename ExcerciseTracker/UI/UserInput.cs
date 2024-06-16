@@ -56,17 +56,58 @@ namespace ExcerciseTracker.UI
                         break;
                     case 1:
                         List<Cardio> cardioList = controller.ShowAllRecords();
-                        TableVisualizationEngine.ShowTable(cardioList, "CardioExercises", "");
+                        TableVisualizationEngine.ShowTable(cardioList, "CardioExercises");
+                        break;
+                    case 2:
+                        GetIdFromUser();
+                            
+                        break;
+                    case 3:
+                        var (okId,id) = GetIdFromUser();
+                        if (okId)
+                            UpdateExercise(id);
                         break;
                     case 5:
-
-                        Cardio cardio = CreateNewExercise();
-                        controller.CreateNewExercise(cardio);
+                        var newCardio = CreateNewExercise();
+                        controller.CreateNewExercise(newCardio);
 
                         break;
                 }
             }
         }
+        private (bool,int) GetIdFromUser()
+        {
+            Console.WriteLine("Write Id of exercise to present:");
+            var input = Console.ReadLine();
+
+            var (validInput, id) = validate.ValidateId(input);
+            if (!validInput)
+            {
+                Console.WriteLine("Wrong Input!");
+                return (false,-1);
+            }
+               
+            return FindExerciseById(id);
+        }
+
+        private (bool,int) FindExerciseById(int id)
+        {
+            var cardioById = controller.FindExerciseById(id);
+            if (cardioById != null)
+            {
+                TableVisualizationEngine.ShowTable(new List<Cardio> { cardioById }, "CardioExercise");
+                return (true,id);
+            }
+                
+            Console.WriteLine("No exercise found with that Id");
+            return (false,id);
+        }
+
+        private void UpdateExercise(int id)
+        {
+
+        }
+        
 
         private Cardio CreateNewExercise()
         {

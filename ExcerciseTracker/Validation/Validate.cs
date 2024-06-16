@@ -27,5 +27,16 @@ namespace ExcerciseTracker.Validation
 
             return DateTime.Now;
         }
+
+        public (bool, int) ValidateId(string? input)
+        {
+
+            if(!int.TryParse(input, out var result))
+            {
+                return (false, result);
+            }
+
+            return (true, result);
+        }
     }
 }

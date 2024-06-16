@@ -18,6 +18,11 @@ namespace ExcerciseTracker.Services
             return cardioRepository.GetAll();
         }
 
+        public Cardio FindExerciseById(int id)
+        {
+            return cardioRepository.GetById(id);
+        }
+
         public void CreateNewExercise(Cardio cardio) {
 
             

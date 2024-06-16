@@ -5,13 +5,14 @@ using OptimalSeatingArrangement.TableVizualisation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ExcerciseTracker.Controllers
 {
     
-    public class ExerciseController(ExerciseService exerciseService, ICardioRepository cardioRepository)
+    public class ExerciseController(ExerciseService exerciseService)
     {
 
         public List<Cardio> ShowAllRecords()
@@ -29,6 +30,13 @@ namespace ExcerciseTracker.Controllers
         //{
         //    _exerciseRepository = exerciseRepository;
         //}
+
+        public Cardio? FindExerciseById(int id)
+        {
+            var cardio = exerciseService.FindExerciseById(id);
+            return cardio;
+        }
+
 
         public void CreateNewExercise(Cardio newCardio)
         {
