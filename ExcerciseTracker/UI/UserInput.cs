@@ -1,6 +1,7 @@
 ﻿using ExcerciseTracker.Controllers;
 using ExcerciseTracker.Models;
 using ExcerciseTracker.Validation;
+using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using OptimalSeatingArrangement.TableVizualisation;
 using System;
 using System.Collections.Generic;
@@ -43,7 +44,8 @@ namespace ExcerciseTracker.UI
                 Console.WriteLine("6 - Start an exercise session");
                 Console.WriteLine("7 - Stop an exercise session");
 
-
+                bool okId = false;
+                int id = 0;
                 
                 (validInput, option) = validate.ValidateMenuOption(Console.ReadLine());
                 if (!validInput)
@@ -63,21 +65,46 @@ namespace ExcerciseTracker.UI
                             
                         break;
                     case 3:
-                        var (okId,id) = GetIdFromUser();
+                        (okId,id) = GetIdFromUser();
                         if (okId)
-                            UpdateExercise(id);
+                        {
+                            var (newStartTime,newEndTime,comment) = UpdateExercise(id);
+                            controller.UpdateExercise(id, newStartTime, newEndTime, comment);
+                        }
+                        Console.Clear();
+                        break;
+                    case 4:
+                        (okId, id) = GetIdFromUser();
+                        if (okId)
+                        {
+                            if(DeleteExercise())
+                                controller.DeleteExercise(id);
+                        }
+                        Console.Clear();
                         break;
                     case 5:
                         var newCardio = CreateNewExercise();
                         controller.CreateNewExercise(newCardio);
-
+                        Console.Clear();
+                        break;
+                    case 6:
+                        controller.StartNewExercise(StartNewExercise());
+                        break;
+                    case 7:
+                        (okId, id) = GetIdFromUser();
+                        if (okId)
+                        {
+                            //controller.EndExercise(EndExercise(id));
+                        }
+                        Console.Clear();
+                        
                         break;
                 }
             }
         }
         private (bool,int) GetIdFromUser()
         {
-            Console.WriteLine("Write Id of exercise to present:");
+            Console.WriteLine("Write Id of exercise you want to see:");
             var input = Console.ReadLine();
 
             var (validInput, id) = validate.ValidateId(input);
@@ -103,9 +130,36 @@ namespace ExcerciseTracker.UI
             return (false,id);
         }
 
-        private void UpdateExercise(int id)
+        private (DateTime?,DateTime?,string?) UpdateExercise(int id)
         {
+            DateTime? newStartTime = null;
+            DateTime? newEndTime = null;
+            string? comment = null;
 
+            Console.WriteLine("Write new start time  yyyy-MM-dd HH:mm:ss : (0 to keep value)");
+            var input = Console.ReadLine();
+            if (input != "0")
+                newStartTime = validate.ValidateTime(input);
+
+            Console.WriteLine("Write new end time  yyyy-MM-dd HH:mm:ss : (0 to keep value)");
+            input = Console.ReadLine();
+            if (input != "0")
+                newEndTime = validate.ValidateTime(input);
+
+            Console.WriteLine("Write new Comment: (0 to keep value)");
+            input = Console.ReadLine();
+            if (input != "0")
+                comment = input;
+
+            return (newStartTime, newEndTime, comment);
+        }
+
+        public bool DeleteExercise()
+        {
+            Console.WriteLine("Do you want to delete this exercise?  y/n ");
+            var input = Console.ReadLine();
+            
+            return (input == "y" || input == "Y");
         }
         
 
@@ -137,5 +191,13 @@ namespace ExcerciseTracker.UI
             };
 
         }
+
+        private Cardio StartNewExercise() =>  new Cardio { DateStart = DateTime.Now};
+
+        //private (int,DateTime?,string) EndExercise(int id)
+        //{
+
+        //}
+        
     }
 }

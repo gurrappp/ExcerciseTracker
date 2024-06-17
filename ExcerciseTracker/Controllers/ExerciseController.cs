@@ -45,5 +45,33 @@ namespace ExcerciseTracker.Controllers
             //return cardio;
         }
 
+        public void StartNewExercise(Cardio newCardio)
+        {
+            exerciseService.CreateNewExercise(newCardio);
+        }
+
+        public void EndExercise(int id, DateTime? endTime, string duration)
+        {
+            var cardio = exerciseService.FindExerciseById(id);
+            if(endTime != null) cardio.DateEnd = endTime;
+            if(duration != null) cardio.Duration = duration;
+            exerciseService.Update(cardio);
+        }
+
+        public void UpdateExercise(int id, DateTime? newStartTime, DateTime? newEndTime, string? comment)
+        {
+            var cardio = exerciseService.FindExerciseById(id);
+            
+            if(newStartTime != null) cardio.DateStart = newStartTime;
+            if(newEndTime != null) cardio.DateEnd = newEndTime;
+            if(comment != null) cardio.Comments = comment;
+            exerciseService.Update(cardio);
+        }
+
+        public void DeleteExercise(int id)
+        {
+            exerciseService.Delete(id);
+        }
+
     }
 }

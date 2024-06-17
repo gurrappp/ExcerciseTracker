@@ -30,5 +30,17 @@ namespace ExcerciseTracker.Services
             cardioRepository.SaveChanges();
             
         }
+
+        public void Update(Cardio cardio) 
+        { 
+            cardioRepository.Update(cardio);
+            cardioRepository.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            cardioRepository.Delete(cardioRepository.GetById(id));
+            cardioRepository.SaveChanges();
+        }
     }
 }
