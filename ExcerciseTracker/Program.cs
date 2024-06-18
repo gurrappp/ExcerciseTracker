@@ -13,7 +13,6 @@ namespace ExcerciseTracker;
 
 public class Program
 {
-
     private readonly ExerciseController controller;
     private readonly ExerciseService service;
     private readonly UserInput userInput;
@@ -29,23 +28,6 @@ public class Program
 
     public static void Main(string[] args)
     {
-
-        //HostApplicationBuilder builder = Host.CreateApplicationBuilder(args);
-
-        //builder.Services.AddSingleton<IExerciseService, ExerciseService>();
-        //builder.Services.AddScoped<Validate>();
-        //builder.Services.AddSingleton<ExerciseController>();
-        //builder.Services.AddSingleton<UserInput>();
-
-        //using IHost host = builder.Build();
-
-        //host.Run();
-
-
-        //var userInput = new UserInput();
-
-        //await userInput.Menu();
-
         var host = CreateHostBuilder(args).Build();
         host.Services.GetRequiredService<Program>().Run();
     }
@@ -62,7 +44,6 @@ public class Program
                 services.AddTransient<Validate>();
                 services.AddTransient<ICardioRepository,CardioRepository>();
                 services.AddScoped<DbContext, ExerciseContext>();
-                //services.AddTransient<TableVisualizationEngine>();
             });
     }
 

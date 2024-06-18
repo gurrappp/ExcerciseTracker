@@ -46,7 +46,7 @@ namespace ExcerciseTracker.UI
 
                 bool okId = false;
                 int id = 0;
-                
+                Cardio? cardio = null;
                 (validInput, option) = validate.ValidateMenuOption(Console.ReadLine());
                 if (!validInput)
                     break;
@@ -83,8 +83,8 @@ namespace ExcerciseTracker.UI
                         Console.Clear();
                         break;
                     case 5:
-                        var newCardio = CreateNewExercise();
-                        controller.CreateNewExercise(newCardio);
+                        cardio = CreateNewExercise();
+                        controller.CreateNewExercise(cardio);
                         Console.Clear();
                         break;
                     case 6:
@@ -94,6 +94,12 @@ namespace ExcerciseTracker.UI
                         (okId, id) = GetIdFromUser();
                         if (okId)
                         {
+                            cardio = controller.FindExerciseById(id);
+                            if(cardio != null)
+                            {
+                                controller.EndExercise(EndExercise(cardio));
+                            }
+                                
                             //controller.EndExercise(EndExercise(id));
                         }
                         Console.Clear();
@@ -189,15 +195,22 @@ namespace ExcerciseTracker.UI
                 Duration = duration,
                 Comments = comment,
             };
-
         }
 
         private Cardio StartNewExercise() =>  new Cardio { DateStart = DateTime.Now};
 
-        //private (int,DateTime?,string) EndExercise(int id)
-        //{
+        private Cardio EndExercise(Cardio cardio)
+        {
+            cardio.DateEnd = DateTime.Now;
 
-        //}
-        
+            TimeSpan timeSpan = cardio.DateEnd.Value.Subtract(cardio.DateStart.Value);
+            DateTime date = DateTime.Parse(timeSpan.ToString());
+            cardio.Duration = date.ToString("HH:mm:ss");
+
+            Console.WriteLine("Write a comment associated with exercise:");
+            cardio.Comments = Console.ReadLine();
+
+            return cardio;
+        }
     }
 }

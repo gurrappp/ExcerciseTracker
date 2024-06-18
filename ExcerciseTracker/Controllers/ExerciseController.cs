@@ -50,11 +50,8 @@ namespace ExcerciseTracker.Controllers
             exerciseService.CreateNewExercise(newCardio);
         }
 
-        public void EndExercise(int id, DateTime? endTime, string duration)
+        public void EndExercise(Cardio cardio)
         {
-            var cardio = exerciseService.FindExerciseById(id);
-            if(endTime != null) cardio.DateEnd = endTime;
-            if(duration != null) cardio.Duration = duration;
             exerciseService.Update(cardio);
         }
 

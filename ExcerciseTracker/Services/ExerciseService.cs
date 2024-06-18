@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ExcerciseTracker.Services
 {
-    public class ExerciseService(ICardioRepository cardioRepository, Validate validate)   
+    public class ExerciseService(ICardioRepository cardioRepository, Validate validate) : IExerciseService
     {
 
 
@@ -23,12 +23,10 @@ namespace ExcerciseTracker.Services
             return cardioRepository.GetById(id);
         }
 
-        public void CreateNewExercise(Cardio cardio) {
-
-            
+        public void CreateNewExercise(Cardio cardio)
+        { 
             cardioRepository.Add(cardio);
             cardioRepository.SaveChanges();
-            
         }
 
         public void Update(Cardio cardio) 
